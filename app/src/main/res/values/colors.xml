@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<!--
+    <color name="primary">#db5030</color>
+    <color name="secundary">#d2ea88</color>
+    <color name="accent">#93e360</color>
+ -->
+    <color name='primary'>#C28F79</color>
+    <color name='secundary'>#D4B692</color>
+    <color name='accent1'>#D8AA6D</color>
+    <color name='accent2'>#A69462</color>
+    <color name='accent3'>#918A43</color>
+    <color name='accent4'>#A69462</color>
+    <color name='accent5'>#E7BD17</color>
 </resources>

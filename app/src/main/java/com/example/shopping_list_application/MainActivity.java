@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        APIRequests.fetchPokemonData(this, new APIRequests.PokemonApiListener() {
+        APIRequests.fetchData(this, new APIRequests.ApiListener() {
             @Override
             public void onSuccess(JSONObject response) {
                 Log.i("string", "" + response);

@@ -12,15 +12,14 @@ import org.json.JSONObject;
 
 public class APIRequests {
 
-    private static final String API_URL = "https://pokemon-type-api.vercel.app/pokemon/fire";
-    private static final String TAG = "PokemonApiRequest";
+    private static final String API_URL = "https://shopping-list-api-beta.vercel.app/";
 
-    public interface PokemonApiListener {
+    public interface ApiListener {
         void onSuccess(JSONObject response);
         void onError(String error);
     }
 
-    public static void fetchPokemonData(Context context, final PokemonApiListener listener) {
+    public static void fetchData(Context context, final ApiListener listener) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
 

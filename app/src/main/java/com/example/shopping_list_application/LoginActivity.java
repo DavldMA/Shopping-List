@@ -1,0 +1,14 @@
+package com.example.shopping_list_application;
+
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class LoginActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}

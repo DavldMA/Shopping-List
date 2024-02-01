@@ -1,14 +1,31 @@
 package com.example.shopping_list_application;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class User {
-    String username;
-    String email;
+
+    @PrimaryKey
+    public int id;
+    @ColumnInfo(name="username")
+    public String username;
+    @ColumnInfo(name="email")
+    public String email;
 
     public User(String username, String email) {
+        super();
         this.username = username;
         this.email = email;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getUsername() {
         return username;
     }

@@ -3,14 +3,21 @@
     <item
         android:id="@+id/person"
         android:title="@string/ver_listas"
+        android:icon="@drawable/list_icon"
         />
     <item
         android:id="@+id/home"
         android:title="@string/criar"
+        android:icon="@drawable/plus_icon"
         />
     <item
         android:id="@+id/settings"
         android:title="@string/settings"
-        android:icon="@"
+        android:icon="@drawable/settings_icon"
+        />
+    <item
+        android:id="@+id/login"
+        android:title="@string/login"
+        android:icon="@drawable/login_icon"
         />
 </menu>

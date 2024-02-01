@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+// this is trash
         APIRequests.fetchData(this, new APIRequests.ApiListener() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -55,42 +55,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-
-
-
-/*
-        }
-        FirstFragment firstFragment = new FirstFragment();
-        SecondFragment secondFragment = new SecondFragment();
-        ThirdFragment thirdFragment = new ThirdFragment();
-
-@Override
-public boolean
-        onNavigationItemSelected(@NonNull MenuItem item)
-        {
-
-        switch (item.getItemId()) {
-        case R.id.person:
-        getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.flFragment, firstFragment)
-        .commit();
-        return true;
-
-        case R.id.home:
-        getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.flFragment, secondFragment)
-        .commit();
-        return true;
-
-        case R.id.settings:
-        getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.flFragment, thirdFragment)
-        .commit();
-        return true;
-        }
-        return false;
-        }
-*/

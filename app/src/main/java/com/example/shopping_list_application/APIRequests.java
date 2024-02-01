@@ -8,6 +8,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class APIRequests {
@@ -15,7 +17,7 @@ public class APIRequests {
     private static final String API_URL = "https://shopping-list-api-beta.vercel.app/user/login";
 
     public interface ApiListener {
-        void onSuccess(JSONObject response);
+        void onSuccess(JSONObject response) throws JSONException;
         void onError(String error);
     }
 
@@ -30,7 +32,11 @@ public class APIRequests {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Handle the response (update UI, parse JSON, etc.)
-                        listener.onSuccess(response);
+                        try {
+                            listener.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -45,32 +51,28 @@ public class APIRequests {
         queue.add(jsonObjectRequest);
     }
 
-    public static void CreateUser(Context context, JSONObject postData, final ApiListener listener) {
-        // Instantiate the RequestQueue.
+    public static void PostData(String URL, Context context, JSONObject postData, final ApiListener listener) {
         RequestQueue queue = Volley.newRequestQueue(context);
-
-        // Request a JSONObject response from the provided URL.
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST, "https://shopping-list-api-beta.vercel.app/user/register", postData,
+                Request.Method.POST, URL, postData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Handle the response (update UI, parse JSON, etc.)
-                        listener.onSuccess(response);
+                        try {
+                            listener.onSuccess(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Handle errors (e.g., network error, server error)
                         listener.onError(error.toString());
                     }
                 });
-
-        // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
-
 
 
 }

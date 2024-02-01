@@ -1,15 +1,12 @@
 package com.example.shopping_list_application;
 
 public class User {
-   // username / email / password
     String username;
     String email;
-    String Password;
 
-    public User(String username, String email, String password) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
-        Password = password;
     }
 
     public String getUsername() {
@@ -26,13 +23,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
     }
 }

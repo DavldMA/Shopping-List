@@ -4,6 +4,7 @@ import static android.app.PendingIntent.getActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -52,10 +53,33 @@ public class RegisterActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        APIRequests.CreateUser(RegisterActivity.this, postData, new APIRequests.ApiListener() {
+                        APIRequests.PostData("https://shopping-list-api-beta.vercel.app/user/register",RegisterActivity.this, postData, new APIRequests.ApiListener() {
                             @Override
-                            public void onSuccess(JSONObject response) {
-                                // Handle the success response
+                            public void onSuccess(JSONObject response) throws JSONException {;
+                                if(response.getString("CODE") != null){
+                                    switch(response.getString("CODE")){
+                                        case "001":
+                                            Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                            startActivity(intent);
+                                        break;
+                                        case "002":
+                                            Toast.makeText(RegisterActivity.this, "Username Already Exists", Toast.LENGTH_LONG).show();
+                                        break;
+                                        case "003":
+                                            Toast.makeText(RegisterActivity.this, "Email Already Registered", Toast.LENGTH_LONG).show();
+                                        break;
+                                        case "004":
+                                            Toast.makeText(RegisterActivity.this, "The password Inserted is wrong", Toast.LENGTH_LONG).show();
+                                            break;
+                                        case "005":
+                                            Toast.makeText(RegisterActivity.this, "The Email is wrong or does't exist", Toast.LENGTH_LONG).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(RegisterActivity.this, "Unknown ERROR", Toast.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
                                 Log.d("POST Request", "Success: " + response.toString());
                             }
                             @Override

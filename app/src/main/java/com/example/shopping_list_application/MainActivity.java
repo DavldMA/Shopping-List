@@ -3,10 +3,15 @@ package com.example.shopping_list_application;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -19,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         APIRequests.fetchData(this, new APIRequests.ApiListener() {
             @Override
@@ -33,36 +39,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                int id = item.getItemId();
-                Log.i("teste", ""+item);
-                switch(id){
-                    case 2131231075:
-                        //Ver Listas
-                        break;
-                    case 2131230934:
-                        //Criar
-                        break;
-                    case 2131231116:
-                        //Settings
-                        break;
-                    case 2131230965:
-                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                        startActivity(intent, null);
-                        break;
-                    default:
-                        Log.i("error", ""+id);
-                        break;
+                Log.i("aas", "as "+ item.getItemId());
+                switch(item.getItemId()){
+                    case 2131230967:
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        return false;
                 }
                 return true;
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.person);
     }
 }
+
 
 
 /*

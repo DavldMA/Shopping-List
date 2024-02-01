@@ -2,14 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/person"
-        android:title="Person"
+        android:title="@string/ver_listas"
         />
     <item
         android:id="@+id/home"
-        android:title="Home"
+        android:title="@string/criar"
         />
     <item
         android:id="@+id/settings"
-        android:title="Settings"
+        android:title="@string/settings"
+        android:icon="@"
         />
 </menu>

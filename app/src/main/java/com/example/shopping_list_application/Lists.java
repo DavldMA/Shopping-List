@@ -14,7 +14,7 @@ public class Lists {
 
     @ColumnInfo(name = "Name")
     public String name;
-    @ColumnInfo(name = "Products")
+    /*@ColumnInfo(name = "Products")
     public ArrayList<String> items;
     @ColumnInfo(name = "Quantity")
     public ArrayList<Integer> quantities;
@@ -49,7 +49,7 @@ public class Lists {
 
     public void setQuantities(ArrayList quantities) {
         this.quantities = quantities;
-    }
+    }*/
 
 
 }

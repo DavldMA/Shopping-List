@@ -34,8 +34,13 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = AppDatabase.getInstance(this);
-
+        //db = AppDatabase.getInstance(this);
+        /*Bundle bundle = new Bundle();
+        bundle.putInt("some_int", 0);
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragmentContainerView, ListsFragment.class, bundle)
+                .commit();*/
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -44,17 +49,17 @@ public class MainActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.i("aas", "as "+ item.getItemId());
                 switch(item.getItemId()){
-                    case 2131230969:
+                    case 2131230970:
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
-                        return false;
+                        break;
+                    case 2131230969:
+                        Intent intent2 = new Intent(MainActivity.this, RegisterActivity.class);
+                        startActivity(intent2);
+                        break;
                 }
                 return true;
             }
         });
-
-
-
-
     }
 }

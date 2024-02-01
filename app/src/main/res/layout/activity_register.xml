@@ -86,7 +86,7 @@
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="match_parent"
-        android:layout_height="248dp"
+        android:layout_height="200dp"
         android:background="@drawable/gradient_backgroud"
         android:gravity="center"
         android:shadowDx="5"

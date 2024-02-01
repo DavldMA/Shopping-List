@@ -12,14 +12,72 @@ import org.json.JSONObject;
 
 public class APIRequests {
 
-    private static final String API_URL = "https://shopping-list-api-beta.vercel.app/";
+    private static final String API_URL = "https://shopping-list-api-beta.vercel.app/user/login";
 
     public interface ApiListener {
         void onSuccess(JSONObject response);
         void onError(String error);
     }
 
-    public static void fetchData(Context context, final ApiListener listener) {
+    public static void postData(Context context, JSONObject postData, final ApiListener listener) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        // Request a JSONObject response from the provided URL.
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, API_URL, postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle the response (update UI, parse JSON, etc.)
+                        listener.onSuccess(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle errors (e.g., network error, server error)
+                        listener.onError(error.toString());
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
+    public static void CreateUser(Context context, JSONObject postData, final ApiListener listener) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        // Request a JSONObject response from the provided URL.
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, "https://shopping-list-api-beta.vercel.app/user/register", postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle the response (update UI, parse JSON, etc.)
+                        listener.onSuccess(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle errors (e.g., network error, server error)
+                        listener.onError(error.toString());
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
+
+
+}
+
+
+/*
+ public static void fetchData(Context context, final ApiListener listener) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -44,4 +102,68 @@ public class APIRequests {
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }
-}
+ */
+
+
+
+
+
+
+
+/*
+
+
+    public static void postData(Context context, JSONObject postData, final ApiListener listener) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        // Request a JSONObject response from the provided URL.
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, API_URL, postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Handle the response (update UI, parse JSON, etc.)
+                        listener.onSuccess(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle errors (e.g., network error, server error)
+                        listener.onError(error.toString());
+                    }
+                });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
+
+
+
+
+
+
+    JSONObject postData = new JSONObject();
+try {
+        postData.put("key1", "value1");
+        postData.put("key2", "value2");
+        } catch (JSONException e) {
+        e.printStackTrace();
+        }
+
+        APIRequests.postData(context, postData, new APIRequests.ApiListener() {
+@Override
+public void onSuccess(JSONObject response) {
+        // Handle the success response
+        Log.d("POST Request", "Success: " + response.toString());
+        }
+
+@Override
+public void onError(String error) {
+        // Handle the error response
+        Log.e("POST Request", "Error: " + error);
+        }
+        });
+ */

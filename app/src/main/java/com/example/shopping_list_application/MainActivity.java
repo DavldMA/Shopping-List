@@ -15,28 +15,17 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-// this is trash
-        APIRequests.fetchData(this, new APIRequests.ApiListener() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                Log.i("string", "" + response);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.i("string", "" + error);
-            }
-        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -45,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.i("aas", "as "+ item.getItemId());
                 switch(item.getItemId()){
-                    case 2131230967:
+                    case 2131230969:
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         return false;
@@ -53,5 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
+
     }
 }

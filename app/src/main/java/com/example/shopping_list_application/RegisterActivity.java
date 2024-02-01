@@ -1,8 +1,19 @@
 package com.example.shopping_list_application;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -10,5 +21,63 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Button registerButton = findViewById(R.id.btnRegister);
+
+        EditText etEmail = findViewById(R.id.etEmail);
+        EditText etUsername = findViewById(R.id.etUsername);
+        EditText etPassword = findViewById(R.id.etPassword);
+        EditText etConfirmPassword = findViewById(R.id.etConfirmPassword);
+
+
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String email = etEmail.getText().toString();
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+
+                Log.i("teste", ""+email);
+
+                if(isValidEmail(email) && email != null && email != ""){
+                    if(password.equals(confirmPassword)){
+                        JSONObject postData = new JSONObject();
+                        try {
+                            postData.put("username", username);
+                            postData.put("email", email);
+                            postData.put("password", password);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        APIRequests.CreateUser(RegisterActivity.this, postData, new APIRequests.ApiListener() {
+                            @Override
+                            public void onSuccess(JSONObject response) {
+                                // Handle the success response
+                                Log.d("POST Request", "Success: " + response.toString());
+                            }
+                            @Override
+                            public void onError(String error) {
+                                // Handle the error response
+                                Log.e("POST Request", "Error: " + error);
+                            }
+                        });
+                    }
+                }
+                else {
+                    Toast.makeText(RegisterActivity.this, "Invalid Email", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 }

@@ -92,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        intent.putExtra("LoggedIn", true);
                                         startActivity(intent);
                                         break;
                                    /* case "002":

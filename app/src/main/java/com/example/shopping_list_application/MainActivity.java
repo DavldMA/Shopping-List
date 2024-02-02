@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity{
                         break;
                     //Login
                     case 2131230980:
+                        loggedInUser.setLogged(false);
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         break;

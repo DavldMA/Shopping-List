@@ -15,7 +15,6 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> {
     List<Lists> arLists;
 
-
     public ListAdapter(List<Lists> lists) {
         this.arLists = lists;
     }

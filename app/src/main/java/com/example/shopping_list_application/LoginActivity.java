@@ -17,7 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         EditText etEmail = findViewById(R.id.etEmail);
         EditText etPassword = findViewById(R.id.etPassword);
         Button button = findViewById(R.id.buttonA);// botão de registrar
+
+        db = AppDatabase.getInstance(this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                                     case "001":
                                         Toast.makeText(LoginActivity.this, "Logged IN Successfully", Toast.LENGTH_LONG).show();
                                         User user = new User(response.getString("username"),email);
+                                        db.userDao().insert(user);
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                         break;

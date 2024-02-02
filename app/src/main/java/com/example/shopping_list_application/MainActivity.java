@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //db = AppDatabase.getInstance(this);
+        db = AppDatabase.getInstance(this);
         /*Bundle bundle = new Bundle();
         bundle.putInt("some_int", 0);
         getSupportFragmentManager().beginTransaction()
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity{
                 .commit();*/
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
+        TextView tv = findViewById(R.id.textView);
+/*
+        if(db.userDao().loadUser().getUsername() !=null)
+            tv.setText(db.userDao().loadUser().getUsername());
+*/
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

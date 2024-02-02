@@ -15,6 +15,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE id IN (:userIds)")
     List<User> loadAllByIds(int[] userIds);
 
+    @Query("SELECT * FROM user WHERE id = 1")
+    User loadUser();
+
     @Insert
     void insert(User... user);
 

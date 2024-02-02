@@ -49,13 +49,9 @@ public class MainActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.i("aas", "as "+ item.getItemId());
                 switch(item.getItemId()){
-                    case 2131230970:
+                    case 2131230972:
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
-                        break;
-                    case 2131230969:
-                        Intent intent2 = new Intent(MainActivity.this, RegisterActivity.class);
-                        startActivity(intent2);
                         break;
                 }
                 return true;

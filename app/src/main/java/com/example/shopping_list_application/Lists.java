@@ -3,7 +3,11 @@ package com.example.shopping_list_application;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
 
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,10 +18,10 @@ public class Lists {
 
     @ColumnInfo(name = "Name")
     public String name;
-    /*@ColumnInfo(name = "Products")
+    @ColumnInfo(name = "Products")
     public ArrayList<String> items;
     @ColumnInfo(name = "Quantity")
-    public ArrayList<Integer> quantities;
+    public ArrayList<String> quantities;
 
     public int getId() {
         return id;
@@ -49,7 +53,6 @@ public class Lists {
 
     public void setQuantities(ArrayList quantities) {
         this.quantities = quantities;
-    }*/
-
+    }
 
 }

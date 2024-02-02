@@ -23,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button registerButton = findViewById(R.id.btnRegister);
+        Button registerButton = findViewById(R.id.buttonRegister);
 
         EditText etEmail = findViewById(R.id.etEmail);
         EditText etUsername = findViewById(R.id.etUsername);

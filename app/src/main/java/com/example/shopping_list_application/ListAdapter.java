@@ -56,7 +56,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHConvidado> {
         }
 
         public void bind(Lists list) {
-            //listName.setText(list.getName());
+            listName.setText(list.getName());
         }
     }
 }

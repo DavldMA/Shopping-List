@@ -24,9 +24,9 @@ public class ListsFragment extends Fragment {
         int someInt = requireArguments().getInt("some_int");
         Log.i("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", ""+someInt);
         rv = view.findViewById(R.id.rvLists);
-        rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        //rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        rv.setAdapter(new ListAdapter(db.listsDao().getAll()));
+        //rv.setAdapter(new ListAdapter(db.listsDao().getAll()));
     }
 
 

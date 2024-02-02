@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
+//import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

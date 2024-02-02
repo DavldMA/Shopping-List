@@ -20,8 +20,6 @@ public class Lists {
     public String name;
     @ColumnInfo(name = "Products")
     public ArrayList<String> items;
-    @ColumnInfo(name = "Quantity")
-    public ArrayList<String> quantities;
 
     public int getId() {
         return id;
@@ -45,14 +43,6 @@ public class Lists {
 
     public void setItems(ArrayList items) {
         this.items = items;
-    }
-
-    public ArrayList getQuantities() {
-        return quantities;
-    }
-
-    public void setQuantities(ArrayList quantities) {
-        this.quantities = quantities;
     }
 
 }

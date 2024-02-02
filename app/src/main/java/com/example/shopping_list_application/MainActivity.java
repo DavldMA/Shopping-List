@@ -36,12 +36,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         db = AppDatabase.getInstance(this);
-        /*Bundle bundle = new Bundle();
-        bundle.putInt("some_int", 0);
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragmentContainerView, ListsFragment.class, bundle)
-                .commit();*/
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -52,14 +46,44 @@ public class MainActivity extends AppCompatActivity{
 */
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.i("aas", "as "+ item.getItemId());
                 switch(item.getItemId()){
-                    case 2131230972:
+                    //Lists
+                    case 2131230979:
+                        Bundle bundle = new Bundle();
+                        getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragmentContainerView, ListsFragment.class, bundle)
+                                .commit();
+                        break;
+                    //create
+                    case 2131230861:
+                        Bundle nbundle = new Bundle();
+                        getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragmentContainerView, CreateListsFragment.class, nbundle)
+                                .commit();
+                        break;
+                    //settings
+                    case 1:
+                       /* Bundle bundle = new Bundle();
+                        getSupportFragmentManager().beginTransaction()
+                                .setReorderingAllowed(true)
+                                .replace(R.id.fragmentContainer, Lista.class, bundle)
+                                .commit();*/
+                        break;
+                    //Login
+                    case 2131230980:
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         break;
+
+
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + item.getItemId());
                 }
                 return true;
             }

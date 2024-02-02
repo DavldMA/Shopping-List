@@ -12,44 +12,44 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHConvidado> {
-    List<Lists> arConvidado;
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> {
+    List<Lists> arLists;
 
 
-    public ListAdapter(List<Lists> convidados) {
-        this.arConvidado = convidados;
+    public ListAdapter(List<Lists> lists) {
+        this.arLists = lists;
     }
 
     @NonNull
     @Override
-    public VHConvidado onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        VHConvidado vhc = new VHConvidado(LayoutInflater.from(parent.getContext()).inflate(R.layout.card_list_layout, parent, false));
-        return vhc;
+    public VHLists onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        VHLists vhl = new VHLists(LayoutInflater.from(parent.getContext()).inflate(R.layout.card_list_layout, parent, false));
+        return vhl;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VHConvidado holder, @SuppressLint("RecyclerView") int position) {
-        Lists convidado = arConvidado.get(position);
-/*
+    public void onBindViewHolder(@NonNull VHLists holder, @SuppressLint("RecyclerView") int position) {
+       Lists list = arLists.get(position);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(v.getContext(), Details.class);
-                it.putExtra("convidado", convidado);
-                v.getContext().startActivity(it);
+                /*Intent it = new Intent(v.getContext(), Details.class);
+                it.putExtra("convidado", list);
+                v.getContext().startActivity(it);*/
             }
         });
-        holder.bind(convidado);*/
+        holder.bind(list);
     }
 
     @Override
     public int getItemCount() {
-        return arConvidado.size();
+        return arLists.size();
     }
 
-    public class VHConvidado extends RecyclerView.ViewHolder {
+    public class VHLists extends RecyclerView.ViewHolder {
         TextView listName;
-        public VHConvidado(@NonNull View itemView) {
+        public VHLists(@NonNull View itemView) {
             super(itemView);
 
             listName = itemView.findViewById(R.id.listName);

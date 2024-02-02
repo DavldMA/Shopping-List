@@ -21,17 +21,13 @@ public class APIRequests {
         void onError(String error);
     }
 
-    public static void postData(Context context, JSONObject postData, final ApiListener listener) {
-        // Instantiate the RequestQueue.
+    public static void GetData(String URL,Context context, JSONObject postData, final ApiListener listener) {
         RequestQueue queue = Volley.newRequestQueue(context);
-
-        // Request a JSONObject response from the provided URL.
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST, API_URL, postData,
+                Request.Method.GET, URL, postData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Handle the response (update UI, parse JSON, etc.)
                         try {
                             listener.onSuccess(response);
                         } catch (JSONException e) {
@@ -42,11 +38,9 @@ public class APIRequests {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Handle errors (e.g., network error, server error)
                         listener.onError(error.toString());
                     }
                 });
-
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
     }

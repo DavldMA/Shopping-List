@@ -16,8 +16,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class LoginActivity extends AppCompatActivity {
     private AppDatabase db;
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +73,26 @@ public class LoginActivity extends AppCompatActivity {
                                 switch(response.getString("CODE")){
                                     case "001":
                                         Toast.makeText(LoginActivity.this, "Logged IN Successfully", Toast.LENGTH_LONG).show();
-                                        User user = new User(response.getString("username"),email);
-                                        db.userDao().insert(user);
+                                        //response.getString("username");
+                                        User user = new User("a",email);
+                                        Log.d("d", ""+user.getUsername());
+                                        //db.userDao().insert(user);
+
+                                        executorService.execute(() -> {
+                                            List<User> users = db.userDao().getAll();
+                                            int indiceUpdate = searchUserByName(users, user.getUsername());
+                                            if (indiceUpdate != -1) {
+                                                user.setId(users.get(indiceUpdate).getId());
+                                                db.userDao().update(user);
+                                            } else {
+                                                db.userDao().insert(user);
+                                            }
+                                        });
+
+
+
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.putExtra("LoggedIn", true);
                                         startActivity(intent);
                                         break;
                                    /* case "002":
@@ -112,4 +134,13 @@ public class LoginActivity extends AppCompatActivity {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
+    private int searchUserByName(List<User> list, String username) {
+        int indiceDelete = -1;
+        for (User usr : list) {
+            if (usr.getUsername().equals(username))
+                indiceDelete = list.indexOf(usr);
+        }
+        return indiceDelete;
+    }
+
 }

@@ -40,10 +40,21 @@ public class MainActivity extends AppCompatActivity{
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         TextView tv = findViewById(R.id.textView);
-/*
-        if(db.userDao().loadUser().getUsername() !=null)
+
+        boolean loggedIn = false;
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            Log.i("a","as");
+            if (intent.getExtras().containsKey("LoggedIn")) {
+                loggedIn = getIntent().getExtras().getBoolean("LoggedIn" , false);
+            }
+        }
+
+        if(loggedIn){
             tv.setText(db.userDao().loadUser().getUsername());
-*/
+        }
+
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 

@@ -35,24 +35,20 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         db = AppDatabase.getInstance(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         TextView tv = findViewById(R.id.textView);
 
-        boolean loggedIn = false;
+        User loggedInUser = db.userDao().loadUser();
 
-        Intent intent = getIntent();
-        if (intent.getExtras() != null) {
-            Log.i("a","as");
-            if (intent.getExtras().containsKey("LoggedIn")) {
-                loggedIn = getIntent().getExtras().getBoolean("LoggedIn" , false);
-            }
-        }
-
-        if(loggedIn){
-            tv.setText(db.userDao().loadUser().getUsername());
+        if (loggedInUser != null && loggedInUser.isLogged()) {
+            tv.setText(loggedInUser.getUsername());
+        } else {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
 
@@ -99,5 +95,14 @@ public class MainActivity extends AppCompatActivity{
                 return true;
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

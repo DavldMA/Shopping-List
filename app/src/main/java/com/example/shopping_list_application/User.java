@@ -14,10 +14,14 @@ public class User {
     @ColumnInfo(name="email")
     public String email;
 
+    @ColumnInfo(name="isLogged")
+    public boolean isLogged;
+
     public User(String username, String email) {
         super();
         this.username = username;
         this.email = email;
+        this.isLogged = true;
     }
     public int getId() {
         return id;
@@ -26,6 +30,15 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
+    public boolean isLogged() {
+        return isLogged;
+    }
+
+    public void setLogged(boolean logged) {
+        isLogged = logged;
+    }
+
     public String getUsername() {
         return username;
     }

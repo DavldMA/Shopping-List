@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shopping_list_application.placeholder.ListDetailsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity{
         if (loggedInUser != null && loggedInUser.isLogged()) {
             tv.setText(loggedInUser.getUsername());
         } else {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            //login
+            Intent intent = new Intent(MainActivity.this, ListDetailsActivity.class);
             startActivity(intent);
         }
 

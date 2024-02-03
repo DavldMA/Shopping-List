@@ -41,6 +41,7 @@ public class CreateListsFragment extends Fragment {
         EditText editTxt = (EditText) view.findViewById(R.id.etListName);
         EditText etItem = (EditText) view.findViewById(R.id.etItem);
         Button btn = (Button) view.findViewById(R.id.addBtn);
+        Button saveListBtn = (Button) view.findViewById(R.id.saveListBtn);
         ListView list = (ListView) view.findViewById(R.id.list);
         ArrayList<String> arrayList = new ArrayList<String>();
 
@@ -53,6 +54,16 @@ public class CreateListsFragment extends Fragment {
             public void onClick(View view) {
                 arrayList.add(editTxt.getText().toString());
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        saveListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+
             }
         });
 

@@ -73,11 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                                 switch(response.getString("CODE")){
                                     case "001":
                                         Toast.makeText(LoginActivity.this, "Logged IN Successfully", Toast.LENGTH_LONG).show();
-                                        //response.getString("username");
-                                        User user = new User("a",email);
+                                        User user = new User(response.getString("username"),email);
                                         Log.d("d", ""+user.getUsername());
-                                        //db.userDao().insert(user);
-
                                         executorService.execute(() -> {
                                             List<User> users = db.userDao().getAll();
                                             int indiceUpdate = searchUserByName(users, user.getUsername());
@@ -88,9 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 db.userDao().insert(user);
                                             }
                                         });
-
-
-
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                         break;

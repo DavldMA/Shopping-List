@@ -1,5 +1,9 @@
 package com.example.shopping_list_application;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Entity
-public class Lists {
+public class Lists implements Parcelable {
     @PrimaryKey
     public int id;
 
@@ -37,12 +41,46 @@ public class Lists {
         this.name = name;
     }
 
-    public ArrayList getItems() {
+    public ArrayList<String> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList items) {
+    public void setItems(ArrayList<String> items) {
         this.items = items;
     }
 
+
+    public Lists(String name, ArrayList<String> items) {
+        this.name = name;
+        this.items = items;
+    }
+
+    protected Lists(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        items = in.createStringArrayList();
+    }
+
+    public static final Creator<Lists> CREATOR = new Creator<Lists>() {
+        @Override
+        public Lists createFromParcel(Parcel in) {
+            return new Lists(in);
+        }
+        @Override
+        public Lists[] newArray(int size) {
+            return new Lists[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeStringList(items);
+    }
 }

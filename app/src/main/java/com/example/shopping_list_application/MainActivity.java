@@ -57,43 +57,44 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.i("aas", "as "+ item.getItemId());
-                switch(item.getItemId()){
-                    //Lists
-                    case 2131230979:
-                        Bundle bundle = new Bundle();
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentContainerView, ListsFragment.class, bundle)
-                                .commit();
-                        break;
-                    //create
-                    case 2131230861:
-                        Bundle nbundle = new Bundle();
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentContainerView, CreateListsFragment.class, nbundle)
-                                .commit();
-                        break;
-                    //settings
-                    case 1:
-                       /* Bundle bundle = new Bundle();
-                        getSupportFragmentManager().beginTransaction()
-                                .setReorderingAllowed(true)
-                                .replace(R.id.fragmentContainer, Lista.class, bundle)
-                                .commit();*/
-                        break;
-                    //Login
-                    case 2131230980:
-                        loggedInUser.setLogged(false);
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        break;
-
-
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + item.getItemId());
+                //Lists
+                if(item.getItemId() == R.id.lists){
+                    Bundle bundle = new Bundle();
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainerView, ListsFragment.class, bundle)
+                            .commit();
+                    return true;
                 }
-                return true;
+                //Create List
+                else if(item.getItemId() == R.id.create){
+                    Bundle nbundle = new Bundle();
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainerView, CreateListsFragment.class, nbundle)
+                            .commit();
+                    return true;
+                }
+                //settings
+                else if(item.getItemId() == R.id.settings){
+                    /*
+                    Bundle bundle = new Bundle();
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragmentContainer, Lista.class, bundle)
+                            .commit();*/
+                    return true;
+                }
+                //Login
+                else if (item.getItemId() == R.id.loginMenuBtn) {
+                    loggedInUser.setLogged(false);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                else{
+                    return true;
+                }
             }
         });
     }

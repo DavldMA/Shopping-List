@@ -2,12 +2,15 @@ package com.example.shopping_list_application;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -26,16 +29,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> {
         return vhl;
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull VHLists holder, @SuppressLint("RecyclerView") int position) {
-       Lists list = arLists.get(position);
+    public void onBindViewHolder(@NonNull VHLists holder, final int position) {
+        Lists list = arLists.get(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent it = new Intent(v.getContext(), Details.class);
-                it.putExtra("convidado", list);
-                v.getContext().startActivity(it);*/
+                Bundle bundle = new Bundle();
+                FragmentManager fragmentManager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragmentContainerView, CreateListsFragment.class, bundle)
+                        .commit();
             }
         });
         holder.bind(list);

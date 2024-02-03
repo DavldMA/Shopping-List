@@ -1,5 +1,7 @@
 package com.example.shopping_list_application;
 
+import static java.lang.Boolean.parseBoolean;
+
 import androidx.room.TypeConverter;
 
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
@@ -21,4 +23,18 @@ public class Converters {
         String json = gson.toJson(list);
         return json;
     }
+
+    @TypeConverter
+    public static ArrayList<Boolean> fromBoolean(boolean value) {
+        Type listType = new TypeToken<ArrayList<Boolean>>() {}.getType();
+        return new Gson().fromJson(""+value, listType);
+    }
+
+    @TypeConverter
+    public static boolean fromArrayListBoolean(ArrayList<Boolean> list) {
+        Gson gson = new Gson();
+        boolean json = parseBoolean(gson.toJson(list));
+        return json;
+    }
+
 }

@@ -1,8 +1,12 @@
 package com.example.shopping_list_application;
 
+import static java.lang.Boolean.parseBoolean;
+
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,11 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,48 +42,46 @@ import java.util.concurrent.Executors;
 
 public class CreateListsFragment extends Fragment {
 
+
+    ListView listViewData;
+    ArrayAdapter<String> adapter;
     private AppDatabase db;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
-    ArrayList<String> listItems=new ArrayList<String>();
-
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
-    ArrayAdapter<String> adapter;
-
-    //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
     int clickCounter=0;
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+
+
         db = AppDatabase.getInstance(view.getContext());
 
         EditText editTxt = (EditText) view.findViewById(R.id.etListName);
         EditText etItem = (EditText) view.findViewById(R.id.etItem);
         Button btn = (Button) view.findViewById(R.id.addBtn);
         Button saveListBtn = (Button) view.findViewById(R.id.saveListBtn);
-        ListView list = (ListView) view.findViewById(R.id.list);
+        listViewData = view.findViewById(R.id.lv_data);
         ArrayList<String> arrayList = new ArrayList<String>();
-
+        ArrayList<String> arrayListDone = new ArrayList<String>();
 
         if(!requireArguments().isEmpty()) {
+            editTxt.setEnabled(false);
             Bundle receivedArgs = requireArguments();
             Lists selectedList = receivedArgs.getParcelable("list");
             editTxt.setText(selectedList.getName());
-            if(selectedList.getItems() != null)
-                if(!selectedList.getItems().isEmpty())
-                    for(String item : selectedList.getItems())
-                        arrayList.add(item);
+            if(selectedList.getItems() != null && !selectedList.getItems().isEmpty())
+                for(String item : selectedList.getItems())
+                    arrayList.add(item);
+
+            if(selectedList.getIsDonned() != null && !selectedList.getIsDonned().isEmpty() && selectedList.getIsDonned().size() >0) {
+                for(String item : selectedList.getIsDonned()) {
+                    arrayListDone.add(item);
+                }
+            }
+            else{
+                selectedList.setIsDonned(new ArrayList<String>());
+                db.listsDao().update(selectedList);
+            }
         }
-
-
-
-
-
-
-
-
-        adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, arrayList);
-
-        list.setAdapter(adapter);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,23 +95,58 @@ public class CreateListsFragment extends Fragment {
         saveListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if(!requireArguments().isEmpty()) {
                     Bundle receivedArgs = requireArguments();
                     Lists selectedList = receivedArgs.getParcelable("list");
                     selectedList.setItems(arrayList);
+                    selectedList.setIsDonned(arrayListDone);
                     db.listsDao().update(selectedList);
                 }
                 else {
-                    Lists list = new Lists(editTxt.getText().toString(), arrayList);
+                    Lists list = new Lists(editTxt.getText().toString(), arrayList, arrayListDone);
                     db.listsDao().insert(list);
                 }
             }
         });
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+        adapter = new ArrayAdapter<String>(view.getContext(), R.layout.list_item_layout, R.id.checkTextView, arrayList) {
+            @NonNull
+            @Override
+            public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                Button buttonDelete = view.findViewById(R.id.buttonDelete);
+
+                CheckedTextView textView2 = view.findViewById(R.id.checkTextView);
+
+                if(!arrayListDone.isEmpty() && position < arrayListDone.size()) {
+                    if(arrayListDone.get(position) != null) {
+                        textView2.setChecked(Boolean.parseBoolean(arrayListDone.get(position)));
+                    }
+                }
+
+                buttonDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        arrayList.remove(position);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                return view;
+            }
+        };
+        listViewData.setAdapter(adapter);
+
+        listViewData.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                etItem.setText(((TextView) view).getText());
+                CheckedTextView checkedTextView = (CheckedTextView) view.findViewById(R.id.checkTextView);
+                checkedTextView.setChecked(!checkedTextView.isChecked());
+                arrayListDone.add(position,""+checkedTextView.isChecked());
+                Log.i("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "" + checkedTextView.isChecked());
             }
         });
     }
@@ -121,7 +161,6 @@ public class CreateListsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("a",""+savedInstanceState);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

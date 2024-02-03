@@ -41,15 +41,14 @@ public class MainActivity extends AppCompatActivity{
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        TextView tv = findViewById(R.id.textView);
 
         User loggedInUser = db.userDao().loadUser();
 
         if (loggedInUser != null && loggedInUser.isLogged()) {
-            tv.setText(loggedInUser.getUsername());
+
         } else {
             //login
-            Intent intent = new Intent(MainActivity.this, ListDetailsActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 

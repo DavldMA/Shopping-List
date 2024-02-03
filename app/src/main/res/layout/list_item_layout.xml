@@ -1,0 +1,27 @@
+<!-- list_item_layout.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <CheckedTextView
+        android:id="@+id/checkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+</RelativeLayout>

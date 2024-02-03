@@ -38,6 +38,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                bundle.putParcelable("list", list);
                 FragmentManager fragmentManager = ((AppCompatActivity)v.getContext()).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .setReorderingAllowed(true)

@@ -11,12 +11,8 @@ import java.util.List;
 
 @Dao
 public interface ListsDao {
-    @Query("SELECT * FROM lists")
+    @Query("SELECT * FROM lists order by id desc")
     List<Lists> getAll();
-/*
-    @Query("SELECT * FROM user WHERE id IN (:userIds)")
-    List<User> loadAllByIds(int[] userIds);
-*/
 
     @Insert
     void insert(Lists... list);
@@ -24,5 +20,5 @@ public interface ListsDao {
     @Delete
     void delete(Lists list);
     @Update
-    void update(Lists list);
+    void update(Lists... list);
 }

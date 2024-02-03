@@ -75,19 +75,10 @@ public class MainActivity extends AppCompatActivity{
                             .commit();
                     return true;
                 }
-                //settings
-                else if(item.getItemId() == R.id.settings){
-                    /*
-                    Bundle bundle = new Bundle();
-                    getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, Lista.class, bundle)
-                            .commit();*/
-                    return true;
-                }
                 //Login
                 else if (item.getItemId() == R.id.loginMenuBtn) {
                     loggedInUser.setLogged(false);
+                    db.userDao().delete(db.userDao().loadUser());
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     return true;

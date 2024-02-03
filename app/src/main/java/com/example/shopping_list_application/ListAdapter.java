@@ -1,8 +1,7 @@
 package com.example.shopping_list_application;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> implements View.OnCreateContextMenuListener {
     List<Lists> arLists;
 
     public ListAdapter(List<Lists> lists) {
@@ -54,16 +53,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists> {
         return arLists.size();
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+    }
+
     public class VHLists extends RecyclerView.ViewHolder {
         TextView listName;
         public VHLists(@NonNull View itemView) {
             super(itemView);
-
             listName = itemView.findViewById(R.id.listName);
+            //itemView.setOnCreateContextMenuListener(itemView.getContext());
         }
 
         public void bind(Lists list) {
             listName.setText(list.getName());
         }
     }
+
 }

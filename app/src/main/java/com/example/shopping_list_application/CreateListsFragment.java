@@ -3,6 +3,9 @@ package com.example.shopping_list_application;
 import static java.lang.Boolean.parseBoolean;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -51,10 +54,7 @@ public class CreateListsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-
-
         db = AppDatabase.getInstance(view.getContext());
-
         EditText editTxt = (EditText) view.findViewById(R.id.etListName);
         EditText etItem = (EditText) view.findViewById(R.id.etItem);
         Button btn = (Button) view.findViewById(R.id.addBtn);
@@ -101,15 +101,55 @@ public class CreateListsFragment extends Fragment {
                     selectedList.setItems(arrayList);
                     selectedList.setIsDonned(arrayListDone);
                     db.listsDao().update(selectedList);
+/*
+                    if(isNetworkAvailable(view)){
+                        JSONObject postData = new JSONObject();
+                        Gson gson = new GsonBuilder().create();
+                        try {
+                            postData.put("username", db.userDao().loadUser().getUsername());
+                            postData.put("list", gson.toJson(selectedList));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        APIRequests.PostData("https://shopping-list-api-beta.vercel.app/list/add",view.getContext(), postData, new APIRequests.ApiListener() {
+                            @Override
+                            public void onSuccess(JSONObject response) throws JSONException {
+                                Log.d("POST Request", "Success: " + response.toString());
+                            }
+                            @Override
+                            public void onError(String error) {
+                                Log.e("POST Request", "Error: " + error);
+                            }
+                        });
+                    }*/
                 }
                 else {
                     Lists list = new Lists(editTxt.getText().toString(), arrayList, arrayListDone);
                     db.listsDao().insert(list);
+
+                    if(isNetworkAvailable(view)){
+                        JSONObject postData = new JSONObject();
+                        Gson gson = new GsonBuilder().create();
+                        try {
+                            postData.put("username", db.userDao().loadUser().getUsername());
+                            postData.put("list", gson.toJson(list));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        APIRequests.PostData("https://shopping-list-api-beta.vercel.app/list/add",view.getContext(), postData, new APIRequests.ApiListener() {
+                            @Override
+                            public void onSuccess(JSONObject response) throws JSONException {
+                                Log.d("POST Request", "Success: " + response.toString());
+                            }
+                            @Override
+                            public void onError(String error) {
+                                Log.e("POST Request", "Error: " + error);
+                            }
+                        });
+                    }
                 }
             }
         });
-
-
 
         adapter = new ArrayAdapter<String>(view.getContext(), R.layout.list_item_layout, R.id.checkTextView, arrayList) {
             @NonNull
@@ -117,15 +157,12 @@ public class CreateListsFragment extends Fragment {
             public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 Button buttonDelete = view.findViewById(R.id.buttonDelete);
-
                 CheckedTextView textView2 = view.findViewById(R.id.checkTextView);
-
                 if(!arrayListDone.isEmpty() && position < arrayListDone.size()) {
                     if(arrayListDone.get(position) != null) {
                         textView2.setChecked(Boolean.parseBoolean(arrayListDone.get(position)));
                     }
                 }
-
                 buttonDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -165,5 +202,11 @@ public class CreateListsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_create_lists, container, false);
+    }
+    private boolean isNetworkAvailable(View view) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) view.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }

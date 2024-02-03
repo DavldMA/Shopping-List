@@ -61,10 +61,16 @@ public class ListsFragment extends Fragment {
                         listdata=db.listsDao().getAll();
                     }
                     JSONArray jArray = response.getJSONArray("lists");
+
+                    Log.i("a","a"+jArray);
                     if (jArray != null) {
                         for (int i=0;i<jArray.length();i++){
                             Gson gson = new GsonBuilder().create();
                             listdata.add(gson.fromJson(jArray.getJSONObject(i).toString(), Lists.class));
+
+                            Lists list = new Lists("teste", new ArrayList<String>());
+                            Log.i("Teste", ""+gson.toJson(list));
+
                         }
                     }
                     Log.d("POST Request", "Success: " + response.toString());

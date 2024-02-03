@@ -23,7 +23,7 @@ public class Lists implements Parcelable {
     @ColumnInfo(name = "Name")
     public String name;
     @ColumnInfo(name = "Products")
-    public ArrayList<String> items;
+    public ArrayList<String> products;
 
     public int getId() {
         return id;
@@ -42,23 +42,23 @@ public class Lists implements Parcelable {
     }
 
     public ArrayList<String> getItems() {
-        return items;
+        return products;
     }
 
     public void setItems(ArrayList<String> items) {
-        this.items = items;
+        this.products = items;
     }
 
 
-    public Lists(String name, ArrayList<String> items) {
+    public Lists(String name, ArrayList<String> products) {
         this.name = name;
-        this.items = items;
+        this.products = products;
     }
 
     protected Lists(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        items = in.createStringArrayList();
+        products = in.createStringArrayList();
     }
 
     public static final Creator<Lists> CREATOR = new Creator<Lists>() {
@@ -81,6 +81,6 @@ public class Lists implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeStringList(items);
+        dest.writeStringList(products);
     }
 }

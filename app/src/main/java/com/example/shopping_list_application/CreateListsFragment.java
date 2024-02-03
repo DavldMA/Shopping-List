@@ -61,9 +61,10 @@ public class CreateListsFragment extends Fragment {
             Bundle receivedArgs = requireArguments();
             Lists selectedList = receivedArgs.getParcelable("list");
             editTxt.setText(selectedList.getName());
-            if(!selectedList.getItems().isEmpty())
-                for(String item : selectedList.getItems())
-                    arrayList.add(item);
+            if(selectedList.getItems() != null)
+                if(!selectedList.getItems().isEmpty())
+                    for(String item : selectedList.getItems())
+                        arrayList.add(item);
         }
 
 

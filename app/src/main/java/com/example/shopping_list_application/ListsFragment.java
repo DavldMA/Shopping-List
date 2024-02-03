@@ -52,48 +52,43 @@ public class ListsFragment extends Fragment {
             String url = "https://shopping-list-api-beta.vercel.app/list/all?username=john_doe"; /*+ loggedInUser.getUsername();*/
             APIRequests.GetData(url, view.getContext(), data, new APIRequests.ApiListener() {
                 @Override
-                public void onSuccess(JSONObject response) {
-                    try {
-                        List<Lists> listdata = new ArrayList<>();
-                        if(db.listsDao().getAll().size() != 0)
-                            listdata = db.listsDao().getAll();
+                public void onSuccess(JSONObject response) throws JSONException {
+                    Log.i("a","a"+response);
 
-                        JSONArray jArray = response.optJSONArray("lists");
-                        if (jArray != null) {
-                            for (int i=0;i<jArray.length();i++){
-                                Gson gson = new GsonBuilder().create();
-                                listdata.add(gson.fromJson(jArray.getJSONObject(i).toString(), Lists.class));
-                            }
-                            int counter = 0;
-                            List<Lists> finalListdata = listdata;
-                            for(Lists list : finalListdata){
-                                counter++;
-                                list.setId(counter);
-                                Log.d("TESTE", ""+list.getId());
-                                executorService.execute(() -> {
-                                    synchronized (this) {
-                                        int indiceUpdate = searchUserByName(finalListdata, list.getName());
-                                        if (indiceUpdate != -1) {
-                                            list.setId(finalListdata.get(indiceUpdate).getId());
-                                            db.listsDao().update(list);
-                                        } else {
-                                            Log.d("POST Request", "Success: " + response.toString());
-                                            db.listsDao().insert(list);
-                                        }
-                                    }
-                                });
-                            }
-                            Log.d("POST Request", "Success: " + response.toString());
-                            rv.setAdapter(new ListAdapter(finalListdata));
+                    List<Lists> listdata = new ArrayList<>();
+
+                    JSONArray jArray = response.getJSONArray("lists");
+
+
+                    if (jArray != null) {
+                        for (int i=0;i<jArray.length();i++){
+                            Gson gson = new GsonBuilder().create();
+                            listdata.add(gson.fromJson(jArray.getJSONObject(i).toString(), Lists.class));
                         }
-                    } catch (JSONException e) {
-                        Log.e("POST Request", "Error parsing JSON: " + e.getMessage());
+                    }
+
+                    Log.d("aasdasdasd", ""+ listdata.get(1).getName());
+
+                    rv.setAdapter(new ListAdapter(listdata));
+                    Log.d("POST Request", "Success: " + response.toString());
+
+                    int counter = 0;
+                    List<Lists> finalListdata = listdata;
+                    for(Lists list : finalListdata) {
+                        counter++;
+                        list.setId(counter);
+                        Log.d("TESTE", "" + list.getId());
+                        Log.d("POST Request", "Success: " + response.toString());
+                        db.listsDao().insert(list);
                     }
                 }
+
                 @Override
                 public void onError(String error) {
+
                     Log.e("POST Request", "Error: " + error);
                 }
+
             });
         }
         else{

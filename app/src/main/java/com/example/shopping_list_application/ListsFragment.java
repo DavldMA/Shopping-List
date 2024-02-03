@@ -1,6 +1,12 @@
 package com.example.shopping_list_application;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,7 +54,7 @@ public class ListsFragment extends Fragment {
 
         User loggedInUser = db.userDao().loadUser();
 
-        if (loggedInUser != null && loggedInUser.isLogged() && isNetworkAvailable()) {
+        if (loggedInUser != null && loggedInUser.isLogged() && isNetworkAvailable(view)) {
             String url = "https://shopping-list-api-beta.vercel.app/list/all?username=john_doe"; /*+ loggedInUser.getUsername();*/
             APIRequests.GetData(url, view.getContext(), data, new APIRequests.ApiListener() {
                 @Override
@@ -130,12 +136,12 @@ public class ListsFragment extends Fragment {
         }
         return indiceDelete;
     }
-    private boolean isNetworkAvailable() {
-        try {
-            String command = "ping -c 1 google.com";
-            return (Runtime.getRuntime().exec(command).waitFor() == 0);
-        } catch (Exception e) {
-            return false;
-        }
+
+
+    private boolean isNetworkAvailable(View view) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) view.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

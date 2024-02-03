@@ -73,14 +73,21 @@ public class ListsFragment extends Fragment {
                     Log.d("POST Request", "Success: " + response.toString());
 
                     List<Lists> finalListdata = listdata;
-                    for(Lists list : finalListdata) {
-                        Log.d("TESTE", "" + list.getId());
-                        int indiceUpdate = searchUserByName(db.listsDao().getAll(), list.getName());
-                        if (indiceUpdate == -1) {
-                            Log.d("POST Request", "Success: " + response.toString());
-                            db.listsDao().insert(list);
+                    executorService.execute(() -> {
+                        synchronized (this) {
+                            db.runInTransaction(() -> {
+                                for (Lists list : finalListdata) {
+                                    Log.d("TESTE", "" + list.getId());
+                                    int indiceUpdate = searchUserByName(db.listsDao().getAll(), list.getName());
+                                    if (indiceUpdate == -1) {
+                                        Log.d("POST Request", "Success: " + response.toString());
+                                        db.listsDao().insert(list);
+                                    }
+                                }
+                            });
                         }
-                    }
+                    });
+
                 }
 
                 @Override

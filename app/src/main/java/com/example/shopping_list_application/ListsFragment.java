@@ -72,14 +72,14 @@ public class ListsFragment extends Fragment {
                     rv.setAdapter(new ListAdapter(listdata));
                     Log.d("POST Request", "Success: " + response.toString());
 
-                    int counter = 0;
                     List<Lists> finalListdata = listdata;
                     for(Lists list : finalListdata) {
-                        counter++;
-                        list.setId(counter);
                         Log.d("TESTE", "" + list.getId());
-                        Log.d("POST Request", "Success: " + response.toString());
-                        db.listsDao().insert(list);
+                        int indiceUpdate = searchUserByName(db.listsDao().getAll(), list.getName());
+                        if (indiceUpdate == -1) {
+                            Log.d("POST Request", "Success: " + response.toString());
+                            db.listsDao().insert(list);
+                        }
                     }
                 }
 
@@ -117,6 +117,7 @@ public class ListsFragment extends Fragment {
     private int searchUserByName(List<Lists> list, String username) {
         int indiceDelete = -1;
         for (Lists usr : list) {
+            Log.i("ALTOS TESTES MEU DEUS FUNCIONA", "" + usr.getName());
             if (usr.getName().equals(username))
                 indiceDelete = list.indexOf(usr);
         }

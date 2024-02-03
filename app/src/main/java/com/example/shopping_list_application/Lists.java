@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 @Entity
 public class Lists implements Parcelable {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
 
     @ColumnInfo(name = "Name")

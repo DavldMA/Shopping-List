@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -60,8 +61,17 @@ public class CreateListsFragment extends Fragment {
         Button btn = (Button) view.findViewById(R.id.addBtn);
         Button saveListBtn = (Button) view.findViewById(R.id.saveListBtn);
         listViewData = view.findViewById(R.id.lv_data);
+        FloatingActionButton goBackButton = view.findViewById(R.id.btnGoBack);
         ArrayList<String> arrayList = new ArrayList<String>();
         ArrayList<String> arrayListDone = new ArrayList<String>();
+
+        goBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if(!requireArguments().isEmpty()) {
             editTxt.setEnabled(false);

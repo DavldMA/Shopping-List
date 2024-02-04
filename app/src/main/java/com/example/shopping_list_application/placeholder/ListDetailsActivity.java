@@ -23,7 +23,6 @@ public class ListDetailsActivity extends AppCompatActivity {
     ListView listViewData;
     ArrayAdapter<String> adapter;
     String[] arrayXD = {"Conteudo1", "conteudo2", "produto3"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +59,11 @@ public class ListDetailsActivity extends AppCompatActivity {
         });
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

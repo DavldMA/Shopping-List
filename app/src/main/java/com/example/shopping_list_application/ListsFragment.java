@@ -3,6 +3,8 @@ package com.example.shopping_list_application;
 import static android.content.Context.CONNECTIVITY_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -15,9 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,7 +41,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ListsFragment extends Fragment {
+public class ListsFragment extends Fragment{
     private AppDatabase db;
     RecyclerView rv;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
@@ -105,10 +112,18 @@ public class ListsFragment extends Fragment {
     public ListsFragment() {}
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_lists, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_lists, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvLists);
+        registerForContextMenu(recyclerView);
+        return view;
+
+        //return inflater.inflate(R.layout.fragment_lists, container, false);
+
     }
 //this needs to change the name of the variables
     private int searchUserByName(List<Lists> list, String username) {
@@ -124,5 +139,20 @@ public class ListsFragment extends Fragment {
                 = (ConnectivityManager) view.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+// Context MENU
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String title = item.getTitle().toString();
+        if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.share))) {
+            Log.i("a","as");
+            return true;
+        } else if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.delete))) {
+            List<Lists> lists = db.listsDao().getAll();
+            Lists list = lists.get(item.getItemId());
+            db.listsDao().delete(list);
+            return true;
+        }
+        return true;
     }
 }

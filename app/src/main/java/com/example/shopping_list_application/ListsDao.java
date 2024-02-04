@@ -14,11 +14,14 @@ public interface ListsDao {
     @Query("SELECT * FROM lists order by id desc")
     List<Lists> getAll();
 
+    @Query("SELECT * FROM lists where id = :id")
+    Lists getList(int id);
+
     @Insert
     void insert(Lists... list);
 
     @Delete
-    void delete(Lists list);
+    void delete(Lists... list);
     @Update
     void update(Lists... list);
 }

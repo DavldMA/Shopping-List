@@ -43,12 +43,14 @@ import java.util.concurrent.Executors;
 
 public class ListsFragment extends Fragment{
     private AppDatabase db;
+    private ListAdapter adapter;
     RecyclerView rv;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         db = AppDatabase.getInstance(view.getContext());
         rv = view.findViewById(R.id.rvLists);
+        rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         JSONObject data = new JSONObject();
         try {
@@ -58,7 +60,7 @@ public class ListsFragment extends Fragment{
         }
         User loggedInUser = db.userDao().loadUser();
         if (loggedInUser != null && loggedInUser.isLogged() && isNetworkAvailable(view)) {
-            String url = "https://shopping-list-api-beta.vercel.app/list/all?username=john_doe"; /*+ loggedInUser.getUsername();*/
+            String url = "https://shopping-list-api-beta.vercel.app/list/all?username="+ loggedInUser.getUsername();
             APIRequests.GetData(url, view.getContext(), data, new APIRequests.ApiListener() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
@@ -143,6 +145,9 @@ public class ListsFragment extends Fragment{
 // Context MENU
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        rv = this.getView().findViewById(R.id.rvLists);
+        adapter = new ListAdapter(db.listsDao().getAll());
+        rv.setAdapter(adapter);
         String title = item.getTitle().toString();
         if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.share))) {
             Log.i("a","as");
@@ -151,6 +156,28 @@ public class ListsFragment extends Fragment{
             List<Lists> lists = db.listsDao().getAll();
             Lists list = lists.get(item.getItemId());
             db.listsDao().delete(list);
+            adapter.notifyItemRemoved(item.getItemId());
+
+            if(isNetworkAvailable(this.getView())){
+                JSONObject postData = new JSONObject();
+                Gson gson = new GsonBuilder().create();
+                try {
+                    postData.put("username", db.userDao().loadUser().getUsername());
+                    postData.put("list", gson.toJson(list));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                APIRequests.DeleteData("https://shopping-list-api-beta.vercel.app/list/removelist/"+db.userDao().loadUser().getUsername()+"/"+list.getName(),this.getView().getContext(), postData, new APIRequests.ApiListener() {
+                    @Override
+                    public void onSuccess(JSONObject response) throws JSONException {
+                        Log.d("POST Request", "Success: " + response.toString());
+                    }
+                    @Override
+                    public void onError(String error) {
+                        Log.e("POST Request", "Error: " + error);
+                    }
+                });
+            }
             return true;
         }
         return true;

@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(response.getString("CODE") != null){
                                 switch(response.getString("CODE")){
                                     case "001":
-                                        Toast.makeText(LoginActivity.this, "Logged IN Successfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, getString(R.string.erro1), Toast.LENGTH_LONG).show();
                                         User user = new User(response.getString("username"),email);
                                         Log.d("d", ""+user.getUsername());
                                         executorService.execute(() -> {
@@ -95,13 +95,13 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, "Invalid Email", Toast.LENGTH_LONG).show();
                                         break;*/
                                     case "004":
-                                        Toast.makeText(LoginActivity.this, "The password Inserted is wrong", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, getString(R.string.erro2), Toast.LENGTH_LONG).show();
                                         break;
                                     case "005":
-                                        Toast.makeText(LoginActivity.this, "The Email is wrong or does't exist", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, getString(R.string.erro3), Toast.LENGTH_LONG).show();
                                         break;
                                     default:
-                                        Toast.makeText(LoginActivity.this, "Unknown ERROR", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, getString(R.string.erro4), Toast.LENGTH_LONG).show();
                                         break;
                                 }
                             }

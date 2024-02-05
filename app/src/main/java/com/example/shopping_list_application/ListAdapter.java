@@ -25,6 +25,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists>{
 
     public ListAdapter(List<Lists> lists) {
         this.arLists = lists;
+        this.notifyDataSetChanged();
+    }
+
+    public void ListSetter(List<Lists> lists) {
+        this.arLists = lists;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -67,6 +73,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.VHLists>{
     public int getItemCount() {
         return arLists.size();
     }
+
     public class VHLists extends RecyclerView.ViewHolder{
         TextView listName;
         public VHLists(@NonNull View itemView) {

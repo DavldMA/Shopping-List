@@ -33,5 +33,6 @@
     <string name="erro2">The password Inserted is wrong</string>
     <string name="erro3">The Email is wrong or doesn\'t exist</string>
     <string name="erro4">Unknown ERROR</string>
+    <string name="create">Create</string>
 
 </resources>

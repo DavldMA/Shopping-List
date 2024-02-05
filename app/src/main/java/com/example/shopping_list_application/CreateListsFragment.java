@@ -78,6 +78,9 @@ public class CreateListsFragment extends Fragment {
             Bundle receivedArgs = requireArguments();
             Lists selectedList = receivedArgs.getParcelable("list");
             editTxt.setText(selectedList.getName());
+            saveListBtn.setText(R.string.save);
+            goBackButton.setVisibility(View.VISIBLE);
+
             if(selectedList.getItems() != null && !selectedList.getItems().isEmpty())
                 for(String item : selectedList.getItems())
                     arrayList.add(item);

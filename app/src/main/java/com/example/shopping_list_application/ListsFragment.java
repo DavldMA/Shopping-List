@@ -9,10 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -146,8 +148,8 @@ public class ListsFragment extends Fragment{
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         rv = this.getView().findViewById(R.id.rvLists);
-        adapter = new ListAdapter(db.listsDao().getAll());
-        rv.setAdapter(adapter);
+        adapter = (ListAdapter) rv.getAdapter();;
+
         String title = item.getTitle().toString();
         if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.share))) {
             Log.i("a","as");
@@ -155,8 +157,7 @@ public class ListsFragment extends Fragment{
         } else if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.delete))) {
             List<Lists> lists = db.listsDao().getAll();
             Lists list = lists.get(item.getItemId());
-            db.listsDao().delete(list);
-            adapter.notifyItemRemoved(item.getItemId());
+
 
             if(isNetworkAvailable(this.getView())){
                 JSONObject postData = new JSONObject();
@@ -171,12 +172,22 @@ public class ListsFragment extends Fragment{
                     @Override
                     public void onSuccess(JSONObject response) throws JSONException {
                         Log.d("POST Request", "Success: " + response.toString());
+                        switch(response.getString("CODE")){
+                            case "001":
+                                db.listsDao().delete(list);
+                                adapter.ListSetter(db.listsDao().getAll());
+                                break;
+                        }
                     }
                     @Override
                     public void onError(String error) {
                         Log.e("POST Request", "Error: " + error);
                     }
                 });
+            }
+            else{
+                db.listsDao().delete(list);
+                adapter.ListSetter(db.listsDao().getAll());
             }
             return true;
         }

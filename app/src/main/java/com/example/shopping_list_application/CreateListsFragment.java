@@ -150,11 +150,16 @@ public class CreateListsFragment extends Fragment {
                             @Override
                             public void onSuccess(JSONObject response) throws JSONException {
                                 Log.d("POST Request", "Success: " + response.toString());
+                                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                                startActivity(intent);
                             }
                             @Override
                             public void onError(String error) {
                                 Log.e("POST Request", "Error: " + error);
+                                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                                startActivity(intent);
                             }
+
                         });
                     }
                 }

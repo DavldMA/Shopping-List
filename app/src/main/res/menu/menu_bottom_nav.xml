@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/lists"
-        android:title="@string/ver_listas"
+        android:title="@string/lists"
         android:icon="@drawable/list_icon"
         />
     <item
         android:id="@+id/create"
-        android:title="@string/criar"
+        android:title="@string/create"
         android:icon="@drawable/plus_icon"
         />
     <item
         android:id="@+id/loginMenuBtn"
-        android:title="@string/login"
+        android:title="@string/logout"
         android:icon="@drawable/login_icon"
         />
 </menu>

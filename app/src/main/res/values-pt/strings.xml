@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shopping-List-Application</string>
+    <string name="title_activity_login">Atividade de Login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Entre ou Registe-se</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="welcome">Bem-Vindo !</string>
+    <string name="invalid_username">O nome de usuário não é válido</string>
+    <string name="invalid_password">a password deve conter mais de 5 caracteres</string>
+    <string name="login_failed">O login falhou</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Registar</string>
+    <string name="username">Nome de usuário</string>
+    <string name="confirm_password">Confirmar password</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Definições</string>
+    <string name="i_already_have_an_account">Já tenho uma conta</string>
+    <string name="done">Feito</string>
+    <string name="save">Salvar</string>
+    <string name="list_name">Nome da lista</string>
+    <string name="thing_to_add_to_the_list">Coisas a adicionar à lista</string>
+    <string name="edit">Editar</string>
+    <string name="share">Partilhar</string>
+    <string name="delete">Eliminar</string>
+    <string name="teste">Editar</string>
+    <string name="erro1">Realizado o login com sucesso</string>
+    <string name="erro2">A password inserida está errada</string>
+    <string name="erro3">O email introduzido não existe ou está errado</string>
+    <string name="erro4">Erro desconhecido</string>
+    <string name="create">Criar</string>
+    <string name="project_made_with_love_by">Projeto feito com amor por:</string>
+    <string name="lists">Listas</string>
+    <string name="copied_to_clipboard">Copiado</string>
+</resources>

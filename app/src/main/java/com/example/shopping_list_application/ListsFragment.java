@@ -1,10 +1,13 @@
 package com.example.shopping_list_application;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.Context.CONNECTIVITY_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import static java.lang.Integer.parseInt;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -45,6 +48,9 @@ import java.util.concurrent.Executors;
 
 public class ListsFragment extends Fragment{
     private AppDatabase db;
+
+    private String baseURL = "https://shopping-list-api-five.vercel.app";
+
     private ListAdapter adapter;
     RecyclerView rv;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
@@ -55,14 +61,9 @@ public class ListsFragment extends Fragment{
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         JSONObject data = new JSONObject();
-        try {
-            data.put("username", "john_doe");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         User loggedInUser = db.userDao().loadUser();
         if (loggedInUser != null && loggedInUser.isLogged() && isNetworkAvailable(view)) {
-            String url = "https://shopping-list-api-beta.vercel.app/list/all?username="+ loggedInUser.getUsername();
+            String url = baseURL+"/list/all?username="+ loggedInUser.getUsername();
             APIRequests.GetData(url, view.getContext(), data, new APIRequests.ApiListener() {
                 @Override
                 public void onSuccess(JSONObject response) throws JSONException {
@@ -149,16 +150,11 @@ public class ListsFragment extends Fragment{
     public boolean onContextItemSelected(MenuItem item) {
         rv = this.getView().findViewById(R.id.rvLists);
         adapter = (ListAdapter) rv.getAdapter();;
+        List<Lists> lists = db.listsDao().getAll();
+        Lists list = lists.get(item.getItemId());
 
         String title = item.getTitle().toString();
         if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.share))) {
-            Log.i("a","as");
-            return true;
-        } else if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.delete))) {
-            List<Lists> lists = db.listsDao().getAll();
-            Lists list = lists.get(item.getItemId());
-
-
             if(isNetworkAvailable(this.getView())){
                 JSONObject postData = new JSONObject();
                 Gson gson = new GsonBuilder().create();
@@ -168,7 +164,41 @@ public class ListsFragment extends Fragment{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                APIRequests.DeleteData("https://shopping-list-api-beta.vercel.app/list/removelist/"+db.userDao().loadUser().getUsername()+"/"+list.getName(),this.getView().getContext(), postData, new APIRequests.ApiListener() {
+                APIRequests.PostData(baseURL+"/list/share",this.getView().getContext(), postData, new APIRequests.ApiListener() {
+                    @Override
+                    public void onSuccess(JSONObject response) throws JSONException {
+                        Log.d("POST Request", "Success: " + response.toString());
+                        switch(response.getString("CODE")){
+                            case "001":
+                                ClipboardManager clipboard = (ClipboardManager) ListsFragment.this.getContext().getSystemService(ListsFragment.this.getView().getContext().CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText(getString(R.string.url), response.getString("url"));
+                                clipboard.setPrimaryClip(clip);
+                                Toast.makeText(ListsFragment.this.getContext(), R.string.copied_to_clipboard, Toast.LENGTH_LONG).show();
+                                break;
+                            case "002":
+                                //error creating URL
+                                break;
+                        }
+                    }
+                    @Override
+                    public void onError(String error) {
+                        Log.e("POST Request", "Error: " + error);
+                    }
+                });
+            }
+            return true;
+        }
+        else if (title.equals(this.getContext().getApplicationContext().getResources().getString(R.string.delete))) {
+            if(isNetworkAvailable(this.getView())){
+                JSONObject postData = new JSONObject();
+                Gson gson = new GsonBuilder().create();
+                try {
+                    postData.put("username", db.userDao().loadUser().getUsername());
+                    postData.put("list", gson.toJson(list));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                APIRequests.DeleteData(baseURL+"/list/removelist/"+db.userDao().loadUser().getUsername()+"/"+list.getName(),this.getView().getContext(), postData, new APIRequests.ApiListener() {
                     @Override
                     public void onSuccess(JSONObject response) throws JSONException {
                         Log.d("POST Request", "Success: " + response.toString());

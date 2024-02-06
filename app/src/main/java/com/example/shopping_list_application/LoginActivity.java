@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
+    private String baseURL = "https://shopping-list-api-five.vercel.app";
     private AppDatabase db;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     @Override
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    APIRequests.PostData("https://shopping-list-api-beta.vercel.app/user/login",LoginActivity.this, postData, new APIRequests.ApiListener() {
+                    APIRequests.PostData(baseURL+"/user/login",LoginActivity.this, postData, new APIRequests.ApiListener() {
                         @Override
                         public void onSuccess(JSONObject response) throws JSONException {
                             Log.d("POST Request", "Success: " + response.toString());

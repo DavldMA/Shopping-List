@@ -46,7 +46,7 @@ import java.util.concurrent.Executors;
 
 public class CreateListsFragment extends Fragment {
 
-
+    private String baseURL = "https://shopping-list-api-five.vercel.app";
     ListView listViewData;
     ArrayAdapter<String> adapter;
     private AppDatabase db;
@@ -149,7 +149,7 @@ public class CreateListsFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        APIRequests.PostData("https://shopping-list-api-beta.vercel.app/list/add",view.getContext(), postData, new APIRequests.ApiListener() {
+                        APIRequests.PostData(baseURL+"/list/add",view.getContext(), postData, new APIRequests.ApiListener() {
                             @Override
                             public void onSuccess(JSONObject response) throws JSONException {
                                 Log.d("POST Request", "Success: " + response.toString());
@@ -201,7 +201,6 @@ public class CreateListsFragment extends Fragment {
                 CheckedTextView checkedTextView = (CheckedTextView) view.findViewById(R.id.checkTextView);
                 checkedTextView.setChecked(!checkedTextView.isChecked());
                 arrayListDone.add(position,""+checkedTextView.isChecked());
-                Log.i("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "" + checkedTextView.isChecked());
             }
         });
     }

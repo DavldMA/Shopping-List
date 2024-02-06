@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
+    private String baseURL = "https://shopping-list-api-five.vercel.app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        APIRequests.PostData("https://shopping-list-api-beta.vercel.app/user/register",RegisterActivity.this, postData, new APIRequests.ApiListener() {
+                        APIRequests.PostData(baseURL+"/user/register",RegisterActivity.this, postData, new APIRequests.ApiListener() {
                             @Override
                             public void onSuccess(JSONObject response) throws JSONException {;
                                 if(response.getString("CODE") != null){

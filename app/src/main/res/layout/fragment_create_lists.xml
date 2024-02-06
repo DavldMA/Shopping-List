@@ -10,9 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="#00000000"
         android:clickable="true"
-        android:src="@android:drawable/arrow_up_float"
+        android:src="?attr/homeAsUpIndicator"
+        app:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>

@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity{
                 else if (item.getItemId() == R.id.loginMenuBtn) {
                     loggedInUser.setLogged(false);
                     db.userDao().delete(db.userDao().loadUser());
+                    db.clearAllTables();
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     return true;

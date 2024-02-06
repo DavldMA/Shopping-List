@@ -45,7 +45,6 @@ import java.util.concurrent.Executors;
 
 
 public class CreateListsFragment extends Fragment {
-
     private String baseURL = "https://shopping-list-api-five.vercel.app";
     ListView listViewData;
     ArrayAdapter<String> adapter;
@@ -114,7 +113,7 @@ public class CreateListsFragment extends Fragment {
                     selectedList.setItems(arrayList);
                     selectedList.setIsDonned(arrayListDone);
                     db.listsDao().update(selectedList);
-/*
+
                     if(isNetworkAvailable(view)){
                         JSONObject postData = new JSONObject();
                         Gson gson = new GsonBuilder().create();
@@ -124,17 +123,18 @@ public class CreateListsFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        APIRequests.PostData("https://shopping-list-api-beta.vercel.app/list/add",view.getContext(), postData, new APIRequests.ApiListener() {
+                        APIRequests.PostData(baseURL+"/list/updatelist",view.getContext(), postData, new APIRequests.ApiListener() {
                             @Override
                             public void onSuccess(JSONObject response) throws JSONException {
                                 Log.d("POST Request", "Success: " + response.toString());
+
                             }
                             @Override
                             public void onError(String error) {
                                 Log.e("POST Request", "Error: " + error);
                             }
                         });
-                    }*/
+                    }
                 }
                 else {
                     Lists list = new Lists(editTxt.getText().toString(), arrayList, arrayListDone);

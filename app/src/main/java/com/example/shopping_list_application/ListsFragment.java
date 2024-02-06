@@ -171,7 +171,7 @@ public class ListsFragment extends Fragment{
                         switch(response.getString("CODE")){
                             case "001":
                                 ClipboardManager clipboard = (ClipboardManager) ListsFragment.this.getContext().getSystemService(ListsFragment.this.getView().getContext().CLIPBOARD_SERVICE);
-                                ClipData clip = ClipData.newPlainText(getString(R.string.url), response.getString("url"));
+                                ClipData clip = ClipData.newPlainText(getString(R.string.url), baseURL+"/list/share/id/"+response.getString("url"));
                                 clipboard.setPrimaryClip(clip);
                                 Toast.makeText(ListsFragment.this.getContext(), R.string.copied_to_clipboard, Toast.LENGTH_LONG).show();
                                 break;

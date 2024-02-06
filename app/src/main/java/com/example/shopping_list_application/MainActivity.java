@@ -11,11 +11,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.window.SplashScreen;
+import androidx.core.splashscreen.SplashScreen;
 import android.window.SplashScreenView;
 
 import com.example.shopping_list_application.placeholder.ListDetailsActivity;
@@ -37,12 +38,11 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        SplashScreen splashScreen = getSplashScreen();
-
-
         setContentView(R.layout.activity_main);
+
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
+
 
         db = AppDatabase.getInstance(this);
 

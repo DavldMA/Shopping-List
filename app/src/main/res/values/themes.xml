@@ -8,9 +8,11 @@
         <item name="android:statusBarColor">@color/secundary</item>
     </style>
     <style name="Theme.ShoppingListApplication" parent="Base.Theme.ShoppingListApplication" />
+
     <style name="Theme.AppSplash" parent="Theme.SplashScreen">
         <item name="android:windowSplashScreenBackground">@drawable/gradient_backgroud_primary_accent</item>
         <item name="android:windowSplashScreenAnimationDuration">5000</item>
         <item name="android:windowSplashScreenBrandingImage">@drawable/logo_without_backgroud</item>
+        <item name="postSplashScreenTheme">@style/Theme.ShoppingListApplication</item>
     </style>
 </resources>

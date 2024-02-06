@@ -2,9 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ShoppingListApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/secundary</item>
+        <item name="colorAccent">@color/accent4</item>
         <item name="android:statusBarColor">@color/secundary</item>
     </style>
-
     <style name="Theme.ShoppingListApplication" parent="Base.Theme.ShoppingListApplication" />
+    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground">@drawable/gradient_backgroud_primary_accent</item>
+        <item name="android:windowSplashScreenAnimationDuration">5000</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/logo_without_backgroud</item>
+    </style>
 </resources>

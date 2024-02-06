@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.window.SplashScreen;
+import android.window.SplashScreenView;
+
 import com.example.shopping_list_application.placeholder.ListDetailsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -34,8 +37,12 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+
+        SplashScreen splashScreen = getSplashScreen();
+
+
+        setContentView(R.layout.activity_main);
 
         db = AppDatabase.getInstance(this);
 

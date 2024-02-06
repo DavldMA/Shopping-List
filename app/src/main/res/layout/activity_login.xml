@@ -7,17 +7,6 @@
     tools:context=".LoginActivity"
     android:background="@drawable/background_image">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnGoBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/primary"
-        android:clickable="true"
-        android:src="@android:drawable/arrow_up_float"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -63,7 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
-                android:backgroundTint="@color/secundary"
+                android:background="@drawable/border_drawable"
+                android:backgroundTint="@color/primary"
                 android:text="@string/register"
                 android:textColorHighlight="#0099ff"
                 android:textColorLink="#0099ff"

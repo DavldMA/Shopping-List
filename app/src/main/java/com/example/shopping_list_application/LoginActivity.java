@@ -27,11 +27,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        FloatingActionButton goBackButton = findViewById(R.id.btnGoBack);
         Button btnLogin = findViewById(R.id.btnLogin);
         EditText etEmail = findViewById(R.id.etEmail);
         EditText etPassword = findViewById(R.id.etPassword);
-        Button button = findViewById(R.id.buttonA);// botão de registrar
+        Button button = findViewById(R.id.buttonA);
 
         db = AppDatabase.getInstance(this);
         button.setOnClickListener(new View.OnClickListener() {
@@ -41,15 +40,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        goBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     public final static boolean isValidEmail(CharSequence target) {
         if (TextUtils.isEmpty(target)) {
             return false;
@@ -135,5 +124,4 @@ public class LoginActivity extends AppCompatActivity {
         }
         return indiceDelete;
     }
-
 }

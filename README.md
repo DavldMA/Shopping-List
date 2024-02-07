@@ -30,14 +30,5 @@ To start using ShopPal, download the APK file from our releases page and install
 
 We welcome contributions from developers of all skill levels. Whether you want to fix a bug, implement a new feature, or enhance documentation, your contributions are valuable. Fork the repository, make your changes, and submit a pull request to contribute to the evolution of ShopPal.
 
-## License
-
-ShopPal is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact Us
-
-Have questions, feedback, or suggestions? Reach out to us at shoppal.support@example.com. We're here to assist you and make your shopping experience with ShopPal even better.
-
----
 
 Experience the convenience of modern shopping with ShopPal. Simplify your shopping lists and elevate your shopping experience today! 🛍️✨

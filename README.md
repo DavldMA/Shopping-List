@@ -4,7 +4,7 @@ ShopPal is an innovative shopping list app developed collaboratively as a group 
 
 ## Features
 
-- **Cloud Synchronization**: Seamlessly synchronize your shopping lists across multiple devices via an internet database. Access your lists anytime, anywhere, ensuring you never miss an item.
+- **Cloud Synchronization**: Seamlessly synchronize your shopping lists across multiple devices via an API and internet database. Access your lists anytime, anywhere, ensuring you never miss an item.
 
 - **Collaborative Sharing**: Share your shopping lists with friends, family, or roommates to coordinate shopping trips effortlessly. Everyone can contribute items in real-time, making shopping a team effort.
 

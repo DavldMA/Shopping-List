@@ -14,7 +14,7 @@ ShopPal is an innovative shopping list app developed collaboratively as a group 
 
 ## Installation
 
-To start using ShopPal, download the APK file from our releases page and install it on your Android device. Ensure that installation from unknown sources is enabled in your device settings.
+To start using ShopPal, download the APK file from our [releases](https://github.com/DavldMA/Shopping-List/releases) page and install it on your Android device. Ensure that installation from unknown sources is enabled in your device settings.
 
 ## Getting Started
 
@@ -25,6 +25,9 @@ To start using ShopPal, download the APK file from our releases page and install
 3. **Share with Others**: Share your shopping list with friends or family by tapping the share icon and entering their email addresses. Collaborate in real-time to plan your shopping trips efficiently.
 
 4. **Stay Organized**: As you shop, mark items as purchased or remove them from the list. ShopPal keeps track of your progress, ensuring you never overlook an essential item.
+
+## Showcase
+soon
 
 ## Contributing
 

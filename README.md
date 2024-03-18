@@ -27,7 +27,10 @@ To start using ShopPal, download the APK file from our [releases](https://github
 4. **Stay Organized**: As you shop, mark items as purchased or remove them from the list. ShopPal keeps track of your progress, ensuring you never overlook an essential item.
 
 ## Showcase
-soon
+
+https://github.com/DavldMA/Shopping-List/assets/121316464/fbe13613-0017-4c09-9880-c9a82f02095f
+
+
 
 ## Contributing
 
